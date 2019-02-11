@@ -1,0 +1,9 @@
+app:
+  name: todo-list-back
+  port: 1323
+  database:
+    user: root
+    password: imdeo
+    host: localhost
+    port: 23306
+    db: imdeo

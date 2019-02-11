@@ -1,0 +1,5 @@
+vendor
+*.out
+.DS_Store
+coverage
+build
