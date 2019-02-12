@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"todo-list-back/config"
 	"todo-list-back/database"
@@ -9,12 +10,23 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 // App application struct
 type App struct {
 	*echo.Echo
 	db *gorm.DB
+}
+
+var e *echo.Echo
+
+func init() {
+	e = echo.New()
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{http.MethodGet, http.MethodPatch, http.MethodPost, http.MethodDelete},
+	}))
 }
 
 func main() {
@@ -25,7 +37,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	app := &App{echo.New(), db}
+	app := &App{e, db}
 
 	app.initRouter()
 
