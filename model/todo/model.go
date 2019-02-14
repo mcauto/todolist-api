@@ -30,6 +30,7 @@ func (i *Item) Find(db *gorm.DB) (err error) {
 // Update update todo item as checked
 func (i *Item) Update(db *gorm.DB) (err error) {
 	err = db.Model(i).Update(i).Error
+	db.Save(i)
 	return
 }
 
