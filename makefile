@@ -79,7 +79,7 @@ coverage-report:
 # Dependency installation
 dep:
 	@echo "${GREEN}Install dependency${NC}"
-	@dep ensure
+	@dep ensure -v
 
 clean:
 	@echo "${GREEN}Clean project${NC}"
