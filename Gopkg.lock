@@ -2,12 +2,39 @@
 
 
 [[projects]]
+  digest = "1:c84a587136cb69cecc11f3dbe9f9001444044c0dba74997b07f7e4c150b07cda"
+  name = "github.com/DATA-DOG/go-sqlmock"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "3f9954f6f6697845b082ca57995849ddf614f450"
+  version = "v1.3.3"
+
+[[projects]]
   branch = "master"
   digest = "1:ab8f3a4a05a124cc0770467431dedec75063653b1b148651080fd4c6a01445e1"
   name = "github.com/amoghe/distillog"
   packages = ["."]
   pruneopts = "UT"
   revision = "ae382b35b7179be96f516c07ae0e54b7723a4822"
+
+[[projects]]
+  digest = "1:c952f10089bb57d6e6d56d8880bcbb4d444b1d40b091354cb25b10a6c23b211a"
+  name = "github.com/bxcodec/faker"
+  packages = [
+    ".",
+    "support/slice",
+  ]
+  pruneopts = "UT"
+  revision = "bfe096fd9e446fc441f79f1aa53cf1c9b5594179"
+  version = "v2.0.1"
+
+[[projects]]
+  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  pruneopts = "UT"
+  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
+  version = "v1.1.1"
 
 [[projects]]
   digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
@@ -136,6 +163,14 @@
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  pruneopts = "UT"
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:3e39bafd6c2f4bf3c76c3bfd16a2e09e016510ad5db90dc02b88e2f565d6d595"
   name = "github.com/spf13/afero"
   packages = [
@@ -177,6 +212,25 @@
   pruneopts = "UT"
   revision = "6d33b5a963d922d182c91e8a1c88d81fd150cfd4"
   version = "v1.3.1"
+
+[[projects]]
+  digest = "1:ac83cf90d08b63ad5f7e020ef480d319ae890c208f8524622a2f3136e2686b02"
+  name = "github.com/stretchr/objx"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "477a77ecc69700c7cdeb1fa9e129548e1c1c393c"
+  version = "v0.1.1"
+
+[[projects]]
+  digest = "1:0bcc464dabcfad5393daf87c3f8142911d0f6c52569b837e91a1c15e890265f3"
+  name = "github.com/stretchr/testify"
+  packages = [
+    "assert",
+    "mock",
+  ]
+  pruneopts = "UT"
+  revision = "ffdc059bfe9ce6a4e144ba849dbedead332c6053"
+  version = "v1.3.0"
 
 [[projects]]
   digest = "1:c468422f334a6b46a19448ad59aaffdfc0a36b08fdcc1c749a0b29b6453d7e59"
@@ -256,12 +310,16 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/DATA-DOG/go-sqlmock",
     "github.com/amoghe/distillog",
+    "github.com/bxcodec/faker",
     "github.com/jinzhu/gorm",
     "github.com/jinzhu/gorm/dialects/mysql",
     "github.com/labstack/echo",
     "github.com/labstack/echo/middleware",
     "github.com/spf13/viper",
+    "github.com/stretchr/testify/assert",
+    "github.com/stretchr/testify/mock",
     "gopkg.in/natefinch/lumberjack.v2",
   ]
   solver-name = "gps-cdcl"

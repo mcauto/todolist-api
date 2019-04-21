@@ -1,7 +1,7 @@
 package database
 
 import (
-	"todo-list-back/model/todo"
+	"todo-list-back/models"
 
 	"github.com/jinzhu/gorm"
 	// gorm에 mysql을 연결하여 사용하기 위한 명시적 import
@@ -26,5 +26,5 @@ func ConnectDB(url string) (*gorm.DB, error) {
 	return db, nil
 }
 func autoMigrate(db *gorm.DB) {
-	db.AutoMigrate(&todo.Item{})
+	db.AutoMigrate(&models.TodoItem{})
 }

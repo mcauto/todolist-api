@@ -7,6 +7,9 @@ import (
 	"todo-list-back/config"
 	"todo-list-back/database"
 	"todo-list-back/logger"
+	todoHttp "todo-list-back/todo/delivery/http"
+	"todo-list-back/todo/repository"
+	"todo-list-back/todo/usecase"
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
@@ -39,7 +42,9 @@ func main() {
 
 	app := &App{e, db}
 
-	app.initRouter()
+	todoRepository := repository.NewGormRepository(app.db)
+	todoUsecase := usecase.NewTodoUsecase(todoRepository)
+	todoHttp.NewTodoHandler(e, todoUsecase)
 
 	defer app.db.Close()
 
