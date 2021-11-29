@@ -1,0 +1,18 @@
+{
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "\\.go$",
+        "cmd": "golines ${file} -w"
+      }
+    ]
+  },
+  // go install github.com/sqs/goreturns@latest
+  "go.formatTool": "goreturns",
+  "[jsonc]": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true
+  },
+  "editor.formatOnSave": true
+}
