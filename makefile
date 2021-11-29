@@ -1,91 +1,95 @@
-NAME := todo-list-back
-DB := todo-list-db
-PKG_LIST := $(shell go list ./... | grep -v /vendor/)
-GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
+GREEN=\n\033[1;32;40m
+NC=\033[0m # No Color
 
-GREEN := \033[0;32m
-NC := \033[0;m
+PKG_LIST := $(shell go list ./...)
+GO_FILES := $(shell find . -name '*.go')
 
-all: clean dep fmt lint vet goreport setup build test race coverage 
+# 라이브러리 설치
+# tidy: 미사용 라이브러리 제거
+# vendor: vendor에 라이브러리 설치
+# graph: 설치된 라이브러리 그래프 확인
+ref:
+	@/bin/sh -c 'echo "${GREEN}[library를 vendor에 설치합니다.]${NC}"'
+	@go mod tidy
+	@go mod vendor -v
+	@/bin/sh -c 'echo "${GREEN}[그래프 확인]${NC}"'
+	@go mod graph
+.PHONY: ref
 
-build:
-	@echo  "${GREEN}Todo list back build...${NC}"
-	@mkdir -p build
-	@go build -o build/${NAME}
-
-# Run gofmt
-fmt:
-	@echo  "${GREEN}Fix by golang format${NC}"
-	@gofmt -l -w ${GO_FILES}
-
-# Check gofmt
-fmtcheck:
-	@echo "${GREEN}Check gofmt${NC}"
-	@gofmt -l -s ${GO_FILES} | read; \
-	if [ $$? == 0 ]; \
-		then echo "gofmt check failed for:"; \
-		gofmt -l -s ${GO_FILES}; \
-		exit 1; \
-	fi
-
-# Lint check
-lint:
-	@echo "${GREEN}Start golint${NC}"
+# 코딩 스타일 분석
+# https://github.com/golang/lint
+# go install golang.org/x/lint/golint@latest
+lint: ref
+	@/bin/sh -c 'echo "${GREEN}[정적분석(golint)을 시작합니다.]${NC}"'
 	@golint -set_exit_status ${PKG_LIST}
+.PHONY: lint
 
-vet:
+# 정적 분석
+vet: ref
+	@/bin/sh -c 'echo "${GREEN}[정적분석(vet)을 시작합니다.]${NC}"'
 	@go vet ./...
+.PHONY: vet
 
-# Check goreportcard-cli
-# (require) 1. https://github.com/alecthomas/gometalinter
-#				@curl -L https://git.io/vp6lP | sh # Linux
-#				@brew tap alecthomas/homebrew-tap & brew install gometalinter # MacOS
-#			2. https://github.com/gojp/goreportcard
-#				@go get -u github.com/gojp/goreportcard/cmd/goreportcard-cli
-goreport:
-	@echo "${GREEN}Run goreportcard-cli${NC}"
-	@goreportcard-cli
+# 보안 정적 분석 (SAST)
+# go install github.com/securego/gosec/v2/cmd/gosec@latest
+sast: ref
+	@/bin/sh -c 'echo "${GREEN}[보안정적분석(gosec)을 시작합니다.]${NC}"'
+	@mkdir -p .public/sast
+	@gosec -fmt=json -out=.public/sast/results.json ./...
+	@gosec -fmt=html -out=.public/sast/index.html ./...
+.PHONY: sast
 
-# Infra init
-setup:
-	@echo "${GREEN}Run infrastructure${NC}"
-	@docker-compose up -d
-	@printf "${GREEN}Mysql running"
-	@bash ./tools/mysql_check.sh ${DB} root imdeo
+# 테스트 시작
+test: ref
+	@/bin/sh -c 'echo "${GREEN}[테스트를 시작합니다.]${NC}"'
+	@unset LANG LC_ALL LC_MESSAGES && go test -short ${PKG_LIST}
+.PHONY: test
 
-# Run unittests
-test:
-	@echo "${GREEN}Start test${NC}"
-	@go test -short ${PKG_LIST}
+# race condition 검사
+race: ref
+	@/bin/sh -c 'echo "${GREEN}[race condition을 검사합니다.]${NC}"'
+	@unset LANG LC_ALL LC_MESSAGES && go test -race -v ${PKG_LIST}
+.PHONY: race
 
-# Run data race detector
-race:
-	@echo "${GREEN}Run data race detector${NC}"
-	@go test -race -short ${PKG_LIST}
+# 테스트 커버리지
+# go install github.com/axw/gocov/gocov@latest
+# go install github.com/matm/gocov-html@latest
+# go install github.com/AlekSi/gocov-xml@latest
+coverage: ref
+	@/bin/sh -c 'echo "${GREEN}[test coverage를 계산합니다.]${NC}"'
+	@mkdir -p .public/coverage
+	@gocov test ./... | gocov-html > .public/coverage/index.html
+	@gocov test ./... | gocov-xml > coverage.xml
+	@gocov test ./... | gocov report
+.PHONY: coverage
 
+# go report card
+# https://github.com/gojp/goreportcard
+report: ref
+	@/bin/sh -c 'echo "${GREEN}[go report card를 생성합니다]${NC}"'
+	@goreportcard-cli -d src
+.PHONY: report
 
-# Make code coverage report 
-# (require) https://github.com/axw/gocov
-#			@go get -u github.com/axw/gocov
-coverage:
-	@echo "${GREEN}Check code coverage${NC}"
-	@gocov test ${PKG_LIST} | gocov report
+# 빌드
+build: ref
+	@/bin/sh -c 'echo "${GREEN}[빌드를 시작합니다]${NC}"'
+	@mkdir -p bin
+	@go build -o bin/
+	@ls -al bin
+.PHONY: build
 
-coverage-report:
-	@echo "${GREEN}Make code coverage report${NC}"
-	@mkdir -p coverage
-	@gocov test ${PKG_LIST} | gocov-html > coverage/report.html
-
-# Dependency installation
-dep:
-	@echo "${GREEN}Install dependency${NC}"
-	@dep ensure -v
+install: build
+	@/bin/sh -c 'echo "${GREEN}[설치를 시작합니다]${NC}"'
+	@mv bin/* ${GOPATH}/bin/
+.PHONY:
 
 clean:
-	@echo "${GREEN}Clean project${NC}"
-	@docker-compose down
-	@rm -rf vendor
-	@rm -rf build
-	@go clean
+	@rm -rf bin vendor
+.PHONY: clean
 
-.PHONY: all fmt fmtcheck lint vet goreport setup build test race coverage dep clean
+# swagger docs
+# go install github.com/swaggo/swag/cmd/swag@latest
+docs: ref
+	@/bin/sh -c 'echo "${GREEN}[generate swagger docs]${NC}"'
+	@swag init
+.PHONY: docs
