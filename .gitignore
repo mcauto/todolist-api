@@ -4,3 +4,5 @@ vendor
 coverage
 build
 .back
+.public
+coverage.xml
