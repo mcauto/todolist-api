@@ -6,3 +6,4 @@ build
 .back
 .public
 coverage.xml
+node_modules
