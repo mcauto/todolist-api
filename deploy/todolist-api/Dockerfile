@@ -13,7 +13,7 @@ WORKDIR /go/src/todolist-api
 
 COPY ../.. .
 
-RUN make lint vet sast test build
+RUN make build
 
 FROM scratch
 

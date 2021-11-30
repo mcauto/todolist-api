@@ -7,6 +7,8 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/swaggo/swag v1.7.6
 	go.uber.org/fx v1.15.0
+	gorm.io/driver/mysql v1.2.1
+	gorm.io/gorm v1.22.4
 )
 
 require (
@@ -17,7 +19,10 @@ require (
 	github.com/go-openapi/jsonreference v0.19.5 // indirect
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-openapi/swag v0.19.14 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.3 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect

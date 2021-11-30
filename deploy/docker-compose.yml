@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  database:
+    image: mysql:8.0
+    ports:
+      - "23306:3306"
+    env_file:
+      - ./mysql/.env
+  api:
+    image: ghcr.io/mcauto/todolist-api:latest
+    build:
+      context: ..
+      dockerfile: ./deploy/todolist-api/Dockerfile
+    env_file:
+      - ./todolist-api/.env
