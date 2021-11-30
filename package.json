@@ -1,0 +1,34 @@
+{
+    "name": "todolist-api",
+    "version": "21.0.0",
+    "description": "todolist-api",
+    "repository": "https://github.com/mcauto/todolist-api.git",
+    "author": "Mincheol Kim<nexters@kakao.com>",
+    "main": "main.go",
+    "license": "MIT",
+    "scripts": {
+        "start": "go run main.go run",
+        "build": "make build",
+        "lint": "make lint",
+        "test": "make test"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
+        "husky": "^4.2.5",
+        "next-standard-version": "^2.1.3",
+        "standard-version": "^9.1.0"
+    },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ]
+    },
+    "husky": {
+        "skipCI": true,
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "make lint vet test sast build"
+        }
+    }
+}
