@@ -1,7 +1,17 @@
+basePath: /
+host: localhost:5000
 info:
-  contact: {}
+  contact:
+    email: nexters@kakao.com
+    name: API Support
+    url: http://localhost:5000
   description: todolist API
   title: todolist API
-  version: 1.0.0
+  version: 21.0.0
 paths: {}
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

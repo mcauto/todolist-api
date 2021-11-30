@@ -3,8 +3,21 @@
     "info": {
         "description": "todolist API",
         "title": "todolist API",
-        "contact": {},
-        "version": "1.0.0"
+        "contact": {
+            "name": "API Support",
+            "url": "http://localhost:5000",
+            "email": "nexters@kakao.com"
+        },
+        "version": "21.0.0"
     },
-    "paths": {}
+    "host": "localhost:5000",
+    "basePath": "/",
+    "paths": {},
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
 }
