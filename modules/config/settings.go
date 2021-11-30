@@ -10,7 +10,7 @@ import (
 
 const (
 	// App version
-	AppVersion = "1.0.0"
+	AppVersion = "21.0.0"
 	// App name
 	AppName = "todolist-api"
 )

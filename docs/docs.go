@@ -17,12 +17,23 @@ var doc = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "name": "API Support",
+            "url": "http://localhost:5000",
+            "email": "nexters@kakao.com"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {}
+    "paths": {},
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
 }`
 
 type swaggerInfo struct {
@@ -36,9 +47,9 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "1.0.0",
-	Host:        "",
-	BasePath:    "",
+	Version:     "21.0.0",
+	Host:        "localhost:5000",
+	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "todolist API",
 	Description: "todolist API",
