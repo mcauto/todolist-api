@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "todolist-api/docs"
 	"todolist-api/modules/delivery/cmd"
 )
 

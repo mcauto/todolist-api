@@ -6,6 +6,13 @@ services:
       - "23306:3306"
     env_file:
       - ./mysql/.env
+    volumes:
+      - type: bind
+        source: ./mysql/files
+        target: /var/lib/mysql-files
+      - type: bind
+        source: ./mysql/my.cnf
+        target: /etc/mysql/my.cnf
   api:
     image: ghcr.io/mcauto/todolist-api:latest
     build:
@@ -13,3 +20,6 @@ services:
       dockerfile: ./deploy/todolist-api/Dockerfile
     env_file:
       - ./todolist-api/.env
+    restart: always
+    depends_on:
+      - database

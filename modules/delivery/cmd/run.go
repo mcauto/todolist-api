@@ -2,8 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"todolist-api/modules"
+	"log"
 	"todolist-api/modules/config"
+	"todolist-api/modules/delivery/web"
+	"todolist-api/modules/domains"
+	"todolist-api/modules/domains/todo"
+	"todolist-api/modules/repository"
+	"todolist-api/modules/repository/_mysql"
 
 	"github.com/spf13/cobra"
 	"go.uber.org/fx"
@@ -14,6 +19,18 @@ var runCmd = &cobra.Command{
 	Version: config.AppVersion,
 	Short:   fmt.Sprintf("%s Run", config.AppName),
 	Run: func(cmd *cobra.Command, args []string) {
-		fx.New(modules.ToBeInjected).Run()
+		f := func(repo *_mysql.Repository) {
+			if err := repo.AutoMigrate(&todo.Item{}); err != nil {
+				log.Fatal(err)
+			}
+		}
+		modules := fx.Options(
+			config.Modules,
+			repository.Modules,
+			domains.Modules,
+			web.Modules,
+			fx.Invoke(f),
+		)
+		fx.New(modules).Run()
 	},
 }

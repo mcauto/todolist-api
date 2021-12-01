@@ -1,5 +1,7 @@
 FROM golang:1.17.3-alpine as build
 
+RUN sed -i 's/https/http/g' /etc/apk/repositories
+
 RUN go install golang.org/x/lint/golint@latest \
     && go install github.com/securego/gosec/v2/cmd/gosec@latest \
     && go install github.com/axw/gocov/gocov@latest \

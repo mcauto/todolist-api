@@ -1,4 +1,18 @@
 basePath: /
+definitions:
+  todo.Item:
+    properties:
+      checked:
+        type: boolean
+      created:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated:
+        type: string
+    type: object
 host: localhost:5000
 info:
   contact:
@@ -8,7 +22,136 @@ info:
   description: todolist API
   title: todolist API
   version: 21.0.0
-paths: {}
+paths:
+  /todos:
+    delete:
+      description: todo delete
+      operationId: todo-delete
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: todo delete
+      tags:
+      - todo
+    get:
+      description: todo get all
+      operationId: todo-get-all
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/todo.Item'
+            type: array
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: todo get all
+      tags:
+      - todo
+    patch:
+      description: todo patch
+      operationId: todo-patch
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: todo patch
+      tags:
+      - todo
+    post:
+      description: todo post
+      operationId: todo-post
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: todo post
+      tags:
+      - todo
+  /todos/:id:
+    get:
+      description: todo get
+      operationId: todo-get
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: todo get
+      tags:
+      - todo
 securityDefinitions:
   ApiKeyAuth:
     in: header

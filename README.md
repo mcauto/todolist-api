@@ -1,5 +1,9 @@
 # todolist-api
 
+## architecture
+
+![clean architecture](https://raw.githubusercontent.com/bxcodec/go-clean-arch/master/clean-arch.png)
+
 ## commands
 
 - config: 실행 전 설정 값을 확인용

@@ -23,7 +23,11 @@ type Settings struct {
 		Port    int    `env:"PORT" json:"port"`
 	} `json:"app"`
 	Database struct {
-		DSN string `env:"DATABASE_DSN,required=true" json:"dsn"`
+		User     string `env:"DATABASE_USER,required=true" json:"user"`
+		Password string `env:"DATABASE_PASSWORD,required=true" json:"password"`
+		Name     string `env:"DATABASE_NAME,default=todolist" json:"name"`
+		Host     string `env:"DATABASE_HOST,default=localhost" json:"host"`
+		Port     int    `env:"DATABASE_PORT,default=3306" json:"port"`
 	} `json:"database"`
 	Extras env.EnvSet `json:"-"`
 }

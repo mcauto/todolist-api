@@ -136,7 +136,7 @@ run:
 
 exit:
 	@/bin/sh -c 'echo "${GREEN}[${APP_NAME} 종료]${NC}"'
-	@docker compose -f deploy/docker-compose.yml down
+	@docker compose -p ${APP_NAME} -f deploy/docker-compose.yml down
 .PHONY: exit
 
 clean:
