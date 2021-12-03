@@ -18,9 +18,10 @@ const (
 // Settings 설정 값
 type Settings struct {
 	App struct {
-		Version string `env:"-,default=1.0.0" json:"version"`
-		Name    string `env:"-,default=todolist-api" json:"name"`
-		Port    int    `env:"PORT" json:"port"`
+		Version     string `env:"-,default=1.0.0" json:"version"`
+		Name        string `env:"-,default=todolist-api" json:"name"`
+		Port        int    `env:"PORT,default=5000" json:"port"`
+		Environment string `env:"ENVIRONMENT,default=development" json:"environment"` // development, stage, production
 	} `json:"app"`
 	Database struct {
 		User     string `env:"DATABASE_USER,required=true" json:"user"`
