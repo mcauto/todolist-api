@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"todolist-api/modules/repository/_mysql"
+	"todolist-api/modules/repository/_dbms"
 )
 
 // Service 인터페이스
@@ -15,11 +15,11 @@ type Service interface {
 
 // ServiceImpl 구현체
 type ServiceImpl struct {
-	repo *_mysql.Repository
+	repo *_dbms.Repository
 }
 
 // NewService 생성자
-func NewService(repo *_mysql.Repository) Service {
+func NewService(repo *_dbms.Repository) Service {
 	return &ServiceImpl{repo}
 }
 

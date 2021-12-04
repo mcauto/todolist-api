@@ -1,4 +1,4 @@
-package _mysql
+package _dbms
 
 import (
 	"log"
