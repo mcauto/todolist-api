@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "앱 실행",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}",
+      "args": ["run"],
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "설정 값 확인",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}",
+      "args": ["config"],
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

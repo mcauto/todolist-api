@@ -1,0 +1,60 @@
+---
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Commit files
+        env:
+          HUSKY_SKIP_HOOKS: 1
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          VERSION=$(npx next-standard-version)
+          DESCRIPTION=$(npx standard-version --dry-run --silent | grep -v yarn | grep -v Done | grep -v "\-\-\-" | grep -v standard-version)
+          echo "DESCRIPTION<<EOF" >> $GITHUB_ENV
+          echo "$DESCRIPTION" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV 
+          sed -i "s/	AppVersion = .*/	AppVersion = \"${VERSION}\"/g" modules/config/settings.go
+          git add modules
+          git commit --no-verify -m "chore(release): ${VERSION}"
+          npx standard-version
+          git tag -d v$VERSION
+          git reset --soft HEAD~~ && git commit --no-verify --no-edit -m "chore(release): ${VERSION}"
+          git tag v$VERSION
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: true
+      - name: Create Github Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
+          body: |
+            ${{ env.DESCRIPTION }}
+          draft: false
+          prerelease: false

@@ -1,0 +1,42 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/package-lock.json": true
+  },
+  "go.buildOnSave": "package",
+  "go.lintOnSave": "file",
+  "go.vetOnSave": "package",
+  "go.coverOnSave": false,
+  "go.testOnSave": true,
+  "go.useCodeSnippetsOnFunctionSuggest": false,
+  "go.buildTags": "",
+  "go.buildFlags": [],
+  "go.lintFlags": [],
+  "go.vetFlags": [],
+  // GOPATH는 프로젝트를 주로 사용하는 경로
+  // GOROOT는 go가 설치된 경로
+  // GOPATH에 설치가 되도록 해야 적용된다
+  // go install github.com/sqs/goreturns@latest
+  // goreturns 은 goimports(자동 임포트), gofmt(자동 포맷팅)를 사용하고 리턴코드도 자동으로 채워준다.
+  "go.formatTool": "goreturns",
+  "go.lintTool": "golint",
+  "go.docsTool": "godoc",
+  "go.gocodeAutoBuild": false,
+  // go install github.com/segmentio/golines@latest
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "\\.go$",
+        "cmd": "golines ${file} -w"
+      }
+    ]
+  },
+  "go.testEnvFile": "${workspaceFolder}/.env",
+  "editor.formatOnSave": true
+}
