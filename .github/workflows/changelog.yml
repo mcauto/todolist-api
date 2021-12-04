@@ -1,0 +1,20 @@
+---
+name: Changelog
+
+on: [push]
+
+jobs:
+  changelog:
+    name: Make changelog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 15
+      - name: Show current changelog
+        run: |
+          npm ci
+          make current_changelog
