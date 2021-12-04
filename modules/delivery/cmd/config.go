@@ -13,6 +13,6 @@ var configCmd = &cobra.Command{
 	Version: config.AppVersion,
 	Short:   fmt.Sprintf("%s Config", config.AppName),
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Print(config.Json())
+		log.Print(config.JSON())
 	},
 }

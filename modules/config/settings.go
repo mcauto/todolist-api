@@ -9,9 +9,9 @@ import (
 )
 
 const (
-	// App version
+	// AppVersion version
 	AppVersion = "21.0.0"
-	// App name
+	// AppName name
 	AppName = "todolist-api"
 )
 
@@ -47,8 +47,8 @@ func NewSettings() *Settings {
 	return &settings
 }
 
-// Json
-func Json() string {
+// JSON 설정 값 출력
+func JSON() string {
 	settings := NewSettings()
 	jsonBytes, err := json.MarshalIndent(settings, "", "  ")
 	if err != nil {

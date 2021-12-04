@@ -9,8 +9,8 @@ type Service interface {
 	Fetch(id uint64) (*Item, error)
 	FetchAll(offset, limit int) ([]Item, error)
 	Insert(item *Item) error
-	Update(item *Item) error
-	Delete(id uint64) error
+	Update(id uint64, title string) (*Item, error)
+	Delete(id uint64) (int64, error)
 }
 
 // ServiceImpl 구현체
@@ -43,11 +43,18 @@ func (s ServiceImpl) Insert(item *Item) error {
 }
 
 // Update Update
-func (s ServiceImpl) Update(item *Item) error {
-	return s.repo.Save(item).Error
+func (s ServiceImpl) Update(id uint64, title string) (*Item, error) {
+	item := &Item{}
+	tx := s.repo.Model(item).Where("id = ?", id).Update("title", title)
+	if tx.RowsAffected == 0 {
+		item = nil
+	}
+	return item, tx.Error
+
 }
 
 // Delete Delete
-func (s ServiceImpl) Delete(id uint64) error {
-	return s.repo.Delete(&Item{ID: id}).Error
+func (s ServiceImpl) Delete(id uint64) (int64, error) {
+	tx := s.repo.Delete(&Item{ID: id})
+	return tx.RowsAffected, tx.Error
 }

@@ -43,18 +43,30 @@ var doc = `{
                 ],
                 "summary": "todo get all",
                 "operationId": "todo-get-all",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "default": 10,
+                        "example": 10,
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "default": 1,
+                        "example": 1,
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/todo.Item"
-                            }
+                            "$ref": "#/definitions/todo.ManyItemResponse"
                         }
-                    },
-                    "204": {
-                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -85,15 +97,70 @@ var doc = `{
                 ],
                 "summary": "todo post",
                 "operationId": "todo-post",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/todo.Body"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+                            "$ref": "#/definitions/todo.Item"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
                             "type": "object"
                         }
                     },
-                    "204": {
-                        "description": ""
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/todos/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "todo get",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "todo"
+                ],
+                "summary": "todo get",
+                "operationId": "todo-get",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/todo.Item"
+                        }
                     },
                     "400": {
                         "description": "Bad Request",
@@ -124,13 +191,16 @@ var doc = `{
                 ],
                 "summary": "todo delete",
                 "operationId": "todo-delete",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
                     "204": {
                         "description": ""
                     },
@@ -163,56 +233,30 @@ var doc = `{
                 ],
                 "summary": "todo patch",
                 "operationId": "todo-patch",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "204": {
-                        "description": ""
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/todos/:id": {
-            "get": {
-                "security": [
+                "parameters": [
                     {
-                        "ApiKeyAuth": []
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/todo.Body"
+                        }
                     }
                 ],
-                "description": "todo get",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "todo"
-                ],
-                "summary": "todo get",
-                "operationId": "todo-get",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "object"
                         }
-                    },
-                    "204": {
-                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -231,6 +275,14 @@ var doc = `{
         }
     },
     "definitions": {
+        "todo.Body": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "todo.Item": {
             "type": "object",
             "properties": {
@@ -248,6 +300,25 @@ var doc = `{
                 },
                 "updated": {
                     "type": "string"
+                }
+            }
+        },
+        "todo.ManyItemResponse": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "todos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/todo.Item"
+                    }
                 }
             }
         }
