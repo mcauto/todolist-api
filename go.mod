@@ -11,6 +11,7 @@ require (
 	github.com/swaggo/swag v1.7.6
 	go.uber.org/fx v1.15.0
 	gorm.io/driver/mysql v1.2.1
+	gorm.io/driver/sqlite v1.2.6
 	gorm.io/gorm v1.22.4
 )
 
@@ -35,6 +36,7 @@ require (
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/mattn/go-sqlite3 v1.14.9 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect

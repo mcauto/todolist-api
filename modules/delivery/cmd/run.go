@@ -7,7 +7,6 @@ import (
 	"todolist-api/modules/delivery/web"
 	"todolist-api/modules/domains"
 	"todolist-api/modules/domains/todo"
-	"todolist-api/modules/repository"
 	"todolist-api/modules/repository/_dbms"
 
 	"github.com/spf13/cobra"
@@ -26,9 +25,9 @@ var runCmd = &cobra.Command{
 		}
 		modules := fx.Options(
 			config.Modules,
-			repository.Modules,
 			domains.Modules,
 			web.Modules,
+			_dbms.Modules,
 			fx.Invoke(f),
 		)
 		fx.New(modules).Run()
