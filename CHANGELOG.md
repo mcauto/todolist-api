@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [21.1.1](https://github.com/mcauto/todolist-api/compare/v21.1.0...v21.1.1) (2021-12-05)
+
+
+### Bug Fixes
+
+* **todo:** insert, fetch, update 결과 처리 방식 변경 ([b29a92a](https://github.com/mcauto/todolist-api/commit/b29a92abf33262459cee7c20416fa5a2d3230a01))
+
 ## 21.1.0 (2021-12-04)
 
 
