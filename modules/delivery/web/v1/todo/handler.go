@@ -108,9 +108,12 @@ func (h Handler) Post(c echo.Context) error {
 		return err
 	}
 
-	err := h.Insert(item)
+	affected, err := h.Insert(item)
 	if err != nil {
 		return domains.JSONResponse(c, http.StatusInternalServerError, err.Error())
+	}
+	if affected == 0 {
+		return domains.JSONResponse(c, http.StatusConflict, nil)
 	}
 	return domains.JSONResponse(c, http.StatusOK, item)
 }
