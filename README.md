@@ -7,6 +7,7 @@
 ## commands
 
 - config: 실행 전 설정 값을 확인용
+- run: api 실행
 
 ## How to run
 
@@ -55,6 +56,7 @@ ____________________________________O/_______
                                     O\
 ⇨ http server started on [::]:5000
 ```
+
 http://localhost:5000/swagger/index.html
 
 ### docker
