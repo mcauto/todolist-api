@@ -1,7 +1,11 @@
 ---
 name: Test
 
-on: [push, pull_request]
+env:
+  DATABASE_USER: ${{ secrets.DATABASE_USER }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+
+on: [push]
 
 jobs:
   test:
