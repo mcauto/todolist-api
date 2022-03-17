@@ -1,0 +1,10 @@
+go 1.18
+
+use (
+	.
+	./modules/_test
+	./modules/config
+	./modules/delivery
+	./modules/domains
+	./modules/repository
+)
