@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.2.0](https://github.com/mcauto/todolist-api/compare/v21.1.1...v21.2.0) (2022-03-17)
+
+
+### Features
+
+* apply multi-module (go1.18) ([c86b835](https://github.com/mcauto/todolist-api/commit/c86b835ac945277bd1bd6eacda767c31e52bd6c5))
+
 ### [21.1.1](https://github.com/mcauto/todolist-api/compare/v21.1.0...v21.1.1) (2021-12-05)
 
 

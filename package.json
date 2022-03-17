@@ -1,6 +1,6 @@
 {
     "name": "todolist-api",
-    "version": "21.1.1",
+    "version": "21.2.0",
     "description": "todolist-api",
     "repository": "https://github.com/mcauto/todolist-api.git",
     "author": "Mincheol Kim<nexters@kakao.com>",
