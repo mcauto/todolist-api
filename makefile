@@ -3,8 +3,7 @@ export
 
 GREEN=\n\033[1;32;40m
 NC=\033[0m # No Color
-
-PKG_LIST := $(shell go list ./... | grep -v .back | grep -v config)
+PKG_LIST := $(shell go list -f '{{.Dir}}'/... -m | grep -v .back | grep -v config)
 GO_FILES := $(shell find . -name '*.go')
 APP_NAME := $(shell head -1 go.mod | cut -d " " -f2)
 VERSION := $(shell cat modules/config/settings.go| grep "AppVersion" | head -1 | cut -d " " -f3 | cut -d '"' -f2)
