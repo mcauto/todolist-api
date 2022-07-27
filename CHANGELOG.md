@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [21.2.1](https://github.com/mcauto/todolist-api/compare/v21.2.0...v21.2.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* **makefile:** go workspace 사용 시 하위 패키지를 ./...으로 찾지 못하는 버그 수정 ([62fcc32](https://github.com/mcauto/todolist-api/commit/62fcc323dbc6058896b038a4f817f040e32eb556))
+
 ## [21.2.0](https://github.com/mcauto/todolist-api/compare/v21.1.1...v21.2.0) (2022-03-17)
 
 
